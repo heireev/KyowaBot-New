@@ -1,0 +1,37 @@
+{
+  "name": "kyowa-bot",
+  "version": "1.0.0",
+  "description": "WhatsApp Bot OpenAI ChatGPT for SMKN 01 Barru",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "base": "",
+  "author": "M. Rifqi Irawan",
+  "license": "MIT",
+  "dependencies": {
+    "@adiwajshing/keyed-db": "^0.2.4",
+    "@ferdiz-afk/baileys": "^6.4.1",
+    "@hapi/boom": "^10.0.0",
+    "awesome-phonenumber": "^2.64.0",
+    "axios": "^1.3.4",
+    "chalk": "^4.1.2",
+    "crypto": "^1.0.1",
+    "database": "^0.0.2",
+    "express": "^4.18.2",
+    "figlet": "^1.5.2",
+    "fs": "0.0.1-security",
+    "lodash": "^4.17.21",
+    "node-cron": "^3.0.2",
+    "openai": "^3.2.1",
+    "path": "^0.12.7",
+    "pino": "^7.0.5",
+    "qrcode-terminal": "^0.12.0",
+    "util": "^0.12.4"
+  },
+  "directories": {
+    "lib": "lib",
+    "src": "src"
+  }
+}
