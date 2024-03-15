@@ -235,15 +235,36 @@ exports.showGroupTask = (m, groupId) => {
 //BETA FEATURE - ABSEN SISWA
 let absentData = [];
 let isAbsentRunning = false;
+let saveNameClass = "";
+
 
 // Fungsi untuk memproses perintah absen dari guru
-exports.processAbsenCommand = async (m, sender) => {
-    // Menetapkan batas waktu 30 menit
-    const startTime = m.messageTimestamp;
-    const endTime = startTime + 1 * 60 * 1000; // 30 menit dalam milidetik
+exports.processAbsenCommand = async (m, sender, text) => {
+    //cek guru terdaftar
+    const dbUsers = readDatabase("users");
+    const user = dbUsers.find((user) => user.number === sender);
+    if (user.role !== "GURU") {
+        return m.reply(
+            "Maaf, perintah ini hanya bisa dilakukan oleh guru yang telah terdaftar",
+        );
+    } else if (isAbsentRunning) {
+        "Maaf, perintah absen sudah sedang berjalan, mohon tunggu absen selesai";
+    }
 
+    //cek argument
+    const args = text.split("#");
+    if (args.length !== 2){
+        return m.reply("Maaf, format yang anda berikan harusnya\n`.mulai_absen [nama_kelas]#[waktu(menit)]`")
+    }
+    const [nameClass, timeMinute] = args;
+    const isGroupClass = dbUsers.find((user) => user.group === nameClass);
+    if(!isGroupClass){
+        return m.reply("Maaf, kelas yang anda berikan belum terdaftar")
+    } else if (isNaN(timeMinute) || timeMinute > 30) {
+        return m.reply ("Pastikan waktu yang anda berikan adalah angka dan tidak lebih dari 30 menit")
+    }
     // Memberikan arahan kepada siswa untuk absen
-    m.reply("Halo siswa! Mohon absen dengan mengirimkan perintah `.absen hadir` atau `.absen izin`.");
+    m.reply("Halo siswa! Mohon absen dengan mengirimkan perintah `.absen hadir` atau `.absen izin`.\n\nAbsen akan dilakukan selama " + timeMinute + " menit.");
 
     // Set variabel isAbsenRunning menjadi true
     isAbsentRunning = true;
@@ -259,11 +280,24 @@ exports.processAbsenCommand = async (m, sender) => {
         
         // Mengosongkan data absen
         absentData = [];
-    }, 1 * 60 * 1000); // Setelah 30 menit
+    }, timeMinute * 60 * 1000); // Setelah timeMinute
 };
 
 // Fungsi untuk memproses perintah absen dari siswa
 exports.processAbsenSiswa = async (m, sender, text) => {
+    //cek siswa terdaftar
+    const dbUsers = readDatabase("users");
+    const user = dbUsers.find((user) => user.number === sender);
+    if (user.role !== "SISWA") {
+        return m.reply(
+            "Maaf, perintah ini hanya bisa dilakukan oleh siswa yang telah terdaftar",
+        );
+    } else if (user.group !== saveNameClass) {
+        return m.reply(
+            "Maaf, perintah ini sedang berjalan untuk kelas " + saveNameClass;
+        )
+    }
+    
     // Mengecek apakah waktu absen sudah berjalan
     if (!isAbsentRunning) {
         return m.reply("Absen belum dibuka atau sudah berakhir.");
@@ -273,7 +307,7 @@ exports.processAbsenSiswa = async (m, sender, text) => {
         m.reply("Perintah absen tidak valid, silahkan gunakan perintah `.absen hadir` atau `.absen izin`.")
     } else {
         // Menyimpan data absen siswa
-        const name = m.pushName
+        const name = user.name
         const status = text
         absentData.push({ name, status });
 

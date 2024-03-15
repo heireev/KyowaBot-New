@@ -26,7 +26,7 @@ exports.kontakStaf = async (m, client, text, mek) => {
             })
             .join("");
             m.reply(`${listStaf}│\n╰───「 Kyowa Bot 」`);
-            m.reply(`Anda bisa menghubungi staf dengan cara:\n*.kontak_staf [kode_staf]*\n\nGunakan fitur ini dengan bijak :)`)
+            m.reply("Anda bisa menghubungi staf dengan cara:\n`.kontak_staf [kode_staf]`\n\nGunakan fitur ini dengan bijak :)")
         }
     } else {
         const args = text.split("#")
@@ -67,7 +67,7 @@ exports.addStaf = (m, text) => {
     const dbStafData = readDatabase("kontakstaf");
     const args = text.split("#")
     if (args.length !== 3) {
-        m.reply("Format perintah salah. Gunakan format *.addstaf [kode]#[nama_staf]#[number]")
+        m.reply("Format perintah salah. Gunakan format `.addstaf [kode]#[nama_staf]#[number]`")
     } else {
         const [kode, nama, number] = args
         const newStaf = {
@@ -84,7 +84,7 @@ exports.addStaf = (m, text) => {
 exports.delStaf = (m, text) => {
     const dbStafData = readDatabase("kontakstaf");
     if (text == "") {
-        m.reply("Maaf anda harus sertakan kode Staf.\nContoh : *.delStaf [kode_staf]*")
+        m.reply("Maaf anda harus sertakan kode Staf.\nContoh : `.delStaf [kode_staf]`")
     } else {
         const stafData = dbStafData.find(staf => staf.code === text)
         if (!stafData) {

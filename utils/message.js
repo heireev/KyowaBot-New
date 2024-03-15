@@ -21,10 +21,10 @@ exports.help = (prefix) => {
 │
 ├ • *${prefix}owner* -> lihat tentang ku
 │
-├──「 Open AI Chat GPT 」
+├──「 Akses Chat GPT 」
 ├ • *${prefix}ai*
 │
-├──「 Task Scheduler 」
+├──「 Jadwalkan Tugas Anda 」
 ├ • *${prefix}buat_tugas*
 ├ • *${prefix}cek_tugas*
 ├ • *${prefix}buat_tugas_grup*
@@ -33,7 +33,6 @@ exports.help = (prefix) => {
 ├──「 Info SMKN 01 Barru 」
 ├ • *${prefix}kontak_staf*
 ├ • *${prefix}jadwal_pelajaran*
-├ • *${prefix}info_ekskul*
 │
 ├──「 Account 」
 ├ • *${prefix}register*
@@ -51,22 +50,6 @@ Semester        : Ganjil
 [file terlampir]
 
 Jika Anda memiliki pertanyaan lebih lanjut tentang jadwal pelajaran atau kegiatan sekolah lainnya, jangan ragu untuk bertanya kepada staf atau guru kami.
-
-Terima kasih.
-
-- Kyowa Bot`
-}
-
-exports.info_ekskul = () => {
-    return `🎉 Informasi Ekstrakurikuler:
-
-🎈 SMKN 01 Barru memiliki berbagai macam kegiatan ekstrakurikuler yang bisa Anda ikuti untuk mengembangkan bakat dan minat Anda.
-
-📚 Berikut adalah info terkait beberapa ekstrakurikuler yang tersedia:
-
-[file terlampir]
-
-Jika Anda tertarik untuk bergabung dengan salah satu ekstrakurikuler atau ingin mendapatkan informasi lebih lanjut, silakan kunjungi kontak atau website yang tertera pada file.
 
 Terima kasih.
 
